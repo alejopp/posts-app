@@ -3,6 +3,7 @@ package com.example.posts_app.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.posts_app.R
@@ -18,17 +19,25 @@ class PostAdapter(private val postList: List<Post>?) :
     }
 
     override fun onBindViewHolder(postViewHolder: PostViewHolder, position: Int) {
-        postViewHolder.binding.tvPostPosition.text = (position + 1).toString()
-        postViewHolder.binding.tvTilteText.text = postList?.get(position)?.title
-        postViewHolder.binding.tvPostDescriptionText.text = postList?.get(position)?.body
-        if (postList?.get(position)?.isFavourite == true) postViewHolder.binding.ivFavourite.visibility =
-            View.VISIBLE
-        postViewHolder.itemView.setOnClickListener {
-            it.findNavController().navigate(R.id.postDetailFragmentDestination)
+        val post = postList?.get(position)
+        if (post != null) {
+            postViewHolder.render(post, position)
         }
     }
 
     override fun getItemCount() = postList?.size ?: 0
 
-    inner class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
+        fun render(post: Post, position: Int){
+            binding.tvPostPosition.text = (position + 1).toString()
+            binding.tvTilteText.text = postList?.get(position)?.title
+            binding.tvPostDescriptionText.text = postList?.get(position)?.body
+            if (postList?.get(position)?.isFavourite == true) binding.ivFavourite.visibility =
+                View.VISIBLE
+            itemView.setOnClickListener {
+                val bundle =  bundleOf("post" to post, "user" to 2)
+                it.findNavController().navigate(R.id.postDetailFragmentDestination, bundle)
+            }
+        }
+    }
 }
