@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">posts-app</string>
+    <string name="title_home">Home</string>
+    <string name="title_favourites">Favourites</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="network_error">Network error</string>
+    <string name="unknown_host_exception">No internet connection</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about_author">About the Author</string>
+    <string name="name">Name: %s</string>
+    <string name="username">Username: %s</string>
+    <string name="email">Email: %s</string>
+    <string name="street">Street: %s</string>
+    <string name="suite">Suite: %s</string>
+    <string name="city">City: %s</string>
+    <string name="phone">Phone: %s</string>
+    <string name="website">Website: %s</string>
+    <string name="catch_phrase">Catch phrase: %s</string>
+    <string name="company_name">Company name: %s</string>
+</resources>
