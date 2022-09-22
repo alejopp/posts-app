@@ -35,7 +35,7 @@ class PostAdapter(private val postList: List<Post>?) :
             if (postList?.get(position)?.isFavourite == true) binding.ivFavourite.visibility =
                 View.VISIBLE
             itemView.setOnClickListener {
-                val bundle =  bundleOf("post" to post, "user" to 2)
+                val bundle =  bundleOf("post" to post)
                 it.findNavController().navigate(R.id.postDetailFragmentDestination, bundle)
             }
         }

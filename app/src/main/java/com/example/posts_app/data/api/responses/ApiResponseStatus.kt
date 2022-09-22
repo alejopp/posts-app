@@ -1,4 +1,4 @@
-package com.example.posts_app.data.api
+package com.example.posts_app.data.api.responses
 
 sealed class ApiResponseStatus<T>{
     class Success<T>(val data: T): ApiResponseStatus<T>()

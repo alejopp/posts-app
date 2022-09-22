@@ -106,97 +106,24 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_website" />
 
     <TextView
-        android:id="@+id/tv_post_detail_company_name"
+        android:id="@+id/tv_post_detail_company_catch_phrase"
         style="@style/text_description"
         android:layout_marginTop="8dp"
-        android:text="@string/company_name"
+        android:text="@string/catch_phrase"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_post_detail_company"
         app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_company"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/tv_post_detail_name_value"
-        style="@style/text_description"
+    <ProgressBar
+        android:id="@+id/pb_post_detail_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_author_name"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_author_name" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_username_value"
-        style="@style/text_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_username"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_username" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_email_value"
-        style="@style/text_description"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_email"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_email" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_street_value"
-        style="@style/text_description"
-        android:layout_marginTop="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_street"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_street" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_suite_value"
-        style="@style/text_description"
-        android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_suite"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_suite" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_city_value"
-        style="@style/text_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_city"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_city" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_phone_value"
-        style="@style/text_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_phone"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_phone" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_website_value"
-        style="@style/text_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_website"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_website" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_company_name_value"
-        style="@style/text_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_company"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_company" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_company_value"
-        style="@style/text_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/tv_post_detail_company_name"
-        app:layout_constraintTop_toTopOf="@+id/tv_post_detail_company_name" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_post_detail_add_to_favourites"

@@ -1,4 +1,4 @@
-package com.example.posts_app.data.api
+package com.example.posts_app.data.api.responses
 
 import com.example.posts_app.data.models.dto.user.UserDto
 

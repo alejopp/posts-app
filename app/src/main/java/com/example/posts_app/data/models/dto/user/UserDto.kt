@@ -4,12 +4,12 @@ import com.example.posts_app.data.models.dto.user.Address
 import com.example.posts_app.data.models.dto.user.Company
 
 data class UserDto(
-    val address: Address,
-    val company: Company,
-    val email: String,
     val id: Int,
     val name: String,
-    val phone: String,
     val username: String,
-    val website: String
+    val email: String,
+    val address: Address,
+    val phone: String,
+    val website: String,
+    val company: Company
 )
