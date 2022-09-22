@@ -21,7 +21,7 @@ object PostProvider {
         .setLenient()
         .create()
 
-    fun provideMovieApi(): ApiService {
+    fun provideRetrofitService(): ApiService {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_URL)
@@ -29,4 +29,5 @@ object PostProvider {
             .build()
             .create(ApiService::class.java)
     }
+
 }

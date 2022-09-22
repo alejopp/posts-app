@@ -1,8 +1,6 @@
 package com.example.posts_app.data.api
 
-import com.example.posts_app.data.models.Post
-import com.example.posts_app.data.models.dto.PostDto
-import com.example.posts_app.data.models.dto.PostttItem
+import com.example.posts_app.data.models.dto.post.PostDto
 
 class PostListResponse: ArrayList<PostDto>()
 
