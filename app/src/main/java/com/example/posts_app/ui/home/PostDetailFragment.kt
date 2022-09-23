@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.posts_app.R
-import com.example.posts_app.data.api.responses.ApiResponseStatus
+import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.data.models.Post
 import com.example.posts_app.databinding.FragmentPostDetailBinding
 
@@ -17,6 +18,7 @@ class PostDetailFragment : Fragment() {
     private var _binding: FragmentPostDetailBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModels()
+    private var post: Post? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +26,7 @@ class PostDetailFragment : Fragment() {
     ): View? {
         _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
         loadDataIntoScreen()
+        listenViewEvents()
         observeViewModel()
         return binding.root
     }
@@ -31,13 +34,13 @@ class PostDetailFragment : Fragment() {
     private fun observeViewModel() {
         homeViewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
-                is ApiResponseStatus.Error -> {
+                is ResponseStatus.Error -> {
                     binding.pbPostDetailLoading.visibility = View.GONE
                     showErrorDialog(status.messageId)
                 }
-                is ApiResponseStatus.Loading -> binding.pbPostDetailLoading.visibility =
+                is ResponseStatus.Loading -> binding.pbPostDetailLoading.visibility =
                     View.VISIBLE
-                is ApiResponseStatus.Success -> binding.pbPostDetailLoading.visibility = View.GONE
+                is ResponseStatus.Success -> binding.pbPostDetailLoading.visibility = View.GONE
                 else -> TODO()
             }
         }
@@ -60,6 +63,14 @@ class PostDetailFragment : Fragment() {
                 )
             }
         }
+        homeViewModel.isFavourite.observe(viewLifecycleOwner){ isFavourite ->
+            if (isFavourite){
+                Toast.makeText(context, R.string.added_to_favourite, Toast.LENGTH_LONG).show()
+            }
+            else{
+                Toast.makeText(context, R.string.remove_from_favourite, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun showErrorDialog(messageId: Int) {
@@ -72,11 +83,17 @@ class PostDetailFragment : Fragment() {
     }
 
     private fun loadDataIntoScreen() {
-        val post = arguments?.getParcelable<Post>("post")
+        post = arguments?.getParcelable<Post>("post")
         homeViewModel.getUser(post!!)
-        binding.tvPostTitlePostDetail.text = post.title
-        binding.tvPostBody.text = post.body
+        binding.tvPostTitlePostDetail.text = post?.title
+        binding.tvPostBody.text = post?.body
+        if (post?.isRead == false) homeViewModel.updateIsReadField(post!!)
     }
 
+    private fun listenViewEvents() {
+        binding.fabPostDetailAddToFavourites.setOnClickListener {
+            homeViewModel.updateFavouriteField(post!!)
+        }
+    }
 
 }

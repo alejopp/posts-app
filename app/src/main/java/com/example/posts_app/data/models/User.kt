@@ -3,9 +3,6 @@ package com.example.posts_app.data.models
 import android.os.Parcelable
 import com.example.posts_app.data.models.dto.user.Address
 import com.example.posts_app.data.models.dto.user.Company
-import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
-
 
 data class User(
     val address: Address,

@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Alejandro/Documents/AndroidStudioProjects/post-app/app/src/main/res/drawable/circle_background.xml" value="0.144" />
+        <entry key="..\:/Users/Alejandro/Documents/AndroidStudioProjects/post-app/app/src/main/res/drawable/circle_background_blue.xml" value="0.2475" />
+        <entry key="..\:/Users/Alejandro/Documents/AndroidStudioProjects/post-app/app/src/main/res/drawable/circle_background_white.xml" value="0.2475" />
         <entry key="..\:/Users/Alejandro/Documents/AndroidStudioProjects/post-app/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Alejandro/Documents/AndroidStudioProjects/post-app/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/Alejandro/Documents/AndroidStudioProjects/post-app/app/src/main/res/layout/fragment_notifications.xml" value="0.25" />

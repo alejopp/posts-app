@@ -6,9 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "post_table")
 data class PostEntity (
-    @PrimaryKey val id: Int,
+    @PrimaryKey @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "user_id") val userId: Int,
-    val title: String,
-    val body: String,
+    @ColumnInfo(name = "title")val title: String,
+    @ColumnInfo(name = "body") val body: String,
     @ColumnInfo(name = "is_favourite") val isFavourite: Boolean,
+    @ColumnInfo(name = "is_read") val isRead: Boolean
 )

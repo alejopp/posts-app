@@ -9,6 +9,7 @@ data class Post(
     val id: Int,
     val title: String,
     val body: String,
-    val isFavourite: Boolean
+    val isFavourite: Boolean,
+    val isRead: Boolean
 ): Parcelable
 
