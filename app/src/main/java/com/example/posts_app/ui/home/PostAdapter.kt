@@ -40,7 +40,6 @@ class PostAdapter(private val postList: List<Post>?) :
                 val bundle =  bundleOf("post" to post)
                 it.findNavController().navigate(R.id.postDetailFragmentDestination, bundle)
             }
-            binding.tvUserId.text = postList?.get(position)?.userId.toString()
             if (post?.isRead == false) {
                 binding.tvPostPosition.setBackgroundResource(R.drawable.circle_background_blue)
                 binding.tvPostPosition.setTextColor(Color.WHITE)

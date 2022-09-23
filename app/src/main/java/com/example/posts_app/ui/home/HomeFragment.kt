@@ -3,30 +3,24 @@ package com.example.posts_app.ui.home
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.collection.arrayMapOf
-import androidx.core.view.get
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.posts_app.MainActivity
 import com.example.posts_app.R
 import com.example.posts_app.databinding.FragmentHomeBinding
 import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.utils.SwipeToDeleteCallback
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val postViewModel: PostViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +34,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        homeViewModel.status.observe(viewLifecycleOwner){ status ->
+        postViewModel.status.observe(viewLifecycleOwner){ status ->
             when(status){
                 is ResponseStatus.Error -> {
                     binding.pbLoading.visibility = View.GONE
@@ -51,12 +45,12 @@ class HomeFragment : Fragment() {
                 else -> TODO()
             }
         }
-        homeViewModel.postList.observe(viewLifecycleOwner){ postList ->
+        postViewModel.postList.observe(viewLifecycleOwner){ postList ->
             binding.rvPost.adapter = PostAdapter(postList)
             val swipeToDeleteCallback = object: SwipeToDeleteCallback(){
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val position = viewHolder.adapterPosition
-                    postList?.get(position)?.let { homeViewModel.deletePost(it.id) }
+                    postList?.get(position)?.let { postViewModel.deletePost(it.id) }
                     binding.rvPost.adapter?.notifyItemRemoved(position)
                 }
             }
@@ -76,7 +70,7 @@ class HomeFragment : Fragment() {
 
     private fun setComponents() {
         //Fetch posts data from api
-        homeViewModel.getPosts()
+        postViewModel.getPosts()
         //Set Post RecyclerView
         binding.rvPost.layoutManager = LinearLayoutManager(context)
     }

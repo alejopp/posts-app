@@ -13,7 +13,7 @@ import com.example.posts_app.data.repository.PostRepository
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class HomeViewModel : ViewModel() {
+class PostViewModel : ViewModel() {
     private val postRepository = PostRepository()
 
     private val _postList = MutableLiveData<MutableList<Post>?>()
