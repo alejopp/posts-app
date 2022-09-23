@@ -87,6 +87,7 @@ class PostDetailFragment : Fragment() {
         homeViewModel.getUser(post!!)
         binding.tvPostTitlePostDetail.text = post?.title
         binding.tvPostBody.text = post?.body
+        if (post?.isRead == false) homeViewModel.updateIsReadField(post!!)
     }
 
     private fun listenViewEvents() {

@@ -47,10 +47,6 @@ class PostRepository {
         })
     }
 
-    suspend fun getUsersFromDatabase(): ResponseStatus<List<User>> = makeDatabaseCall {
-        dao.getUsers().map { userEntity -> userEntity.toModel() }
-    }
-
     suspend fun insertUsersIntoDataBase(userList: List<User>) = makeDatabaseCall {
         dao.insertUsers(userList.map { user -> user.toEntity() })
     }
@@ -65,5 +61,9 @@ class PostRepository {
 
     suspend fun deletePost(id:Int) = makeDatabaseCall {
         dao.detetePost(id)
+    }
+
+    suspend fun updateIsReadField(id: Int, isRead: Boolean) = makeDatabaseCall {
+        dao.updateIsReadField(id, isRead)
     }
 }

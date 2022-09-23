@@ -31,6 +31,9 @@ class HomeViewModel : ViewModel() {
     private val _isFavourite = MutableLiveData<Boolean>()
     val isFavourite: LiveData<Boolean> get() = _isFavourite
 
+    private val _isRead = MutableLiveData<Boolean>()
+    val isRead: LiveData<Boolean> get() = _isRead
+
     fun getPosts(){
         viewModelScope.launch {
             _status.value = ResponseStatus.Loading()
@@ -65,7 +68,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getUserListFromApi(){
+    private fun getUserListFromApi(){
         viewModelScope.launch {
             _status.value = ResponseStatus.Loading()
             val response = postRepository.getUsersListFromApi()
@@ -125,6 +128,13 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             postRepository.updateFavouriteField(post.id, !post.isFavourite)
             _isFavourite.value = !post.isFavourite
+        }
+    }
+
+    fun updateIsReadField(post: Post){
+        viewModelScope.launch {
+            postRepository.updateIsReadField(post.id, !post.isRead)
+            _isRead.value = !post.isRead
         }
     }
 

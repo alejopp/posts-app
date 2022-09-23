@@ -5,17 +5,28 @@ import com.example.posts_app.data.models.Post
 import com.example.posts_app.data.models.dto.post.PostDto
 
 fun PostDto.toModel() =  Post(
-    id = id,
     userId = userId,
+    id = id,
     title = title,
     body = body,
-    isFavourite = false
+    isFavourite = false,
+    isRead = id > 20
 )
 
 fun PostEntity.toModel() =  Post(
-    userId, id, title, body, isFavourite
+    userId = userId,
+    id = id,
+    title = title,
+    body = body,
+    isFavourite = isFavourite,
+    isRead = isRead
 )
 
 fun Post.toEntity() = PostEntity(
-    userId, id, title, body, isFavourite
+    userId = userId,
+    id = id,
+    title = title,
+    body = body,
+    isFavourite = isFavourite,
+    isRead = isRead
 )

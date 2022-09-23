@@ -1,5 +1,7 @@
 package com.example.posts_app.ui.home
 
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +29,7 @@ class PostAdapter(private val postList: List<Post>?) :
 
     override fun getItemCount() = postList?.size ?: 0
 
-    inner class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class PostViewHolder(private val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
         fun render(post: Post, position: Int){
             binding.tvPostPosition.text = (position + 1).toString()
             binding.tvTilteText.text = postList?.get(position)?.title
@@ -37,6 +39,15 @@ class PostAdapter(private val postList: List<Post>?) :
             itemView.setOnClickListener {
                 val bundle =  bundleOf("post" to post)
                 it.findNavController().navigate(R.id.postDetailFragmentDestination, bundle)
+            }
+            binding.tvUserId.text = postList?.get(position)?.userId.toString()
+            if (post?.isRead == false) {
+                binding.tvPostPosition.setBackgroundResource(R.drawable.circle_background_blue)
+                binding.tvPostPosition.setTextColor(Color.WHITE)
+            }
+            else{
+                binding.tvPostPosition.setBackgroundResource(R.drawable.circle_background_white)
+                binding.tvPostPosition.setTextColor(Color.BLACK)
             }
         }
     }

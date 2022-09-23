@@ -26,10 +26,10 @@ interface PostDao {
     @Query("SELECT * FROM user_table WHERE id == :id")
     suspend fun getUser(id: Int): UserEntity
 
-    @Query("SELECT * FROM user_table")
-    suspend fun getUsers(): List<UserEntity>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUsers(userList: List<UserEntity>)
+
+    @Query("UPDATE post_table SET is_read = :isRead WHERE id = :id")
+    suspend fun updateIsReadField(id: Int, isRead: Boolean)
 
 }

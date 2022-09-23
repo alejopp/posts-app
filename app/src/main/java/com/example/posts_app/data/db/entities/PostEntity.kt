@@ -11,4 +11,5 @@ data class PostEntity (
     @ColumnInfo(name = "title")val title: String,
     @ColumnInfo(name = "body") val body: String,
     @ColumnInfo(name = "is_favourite") val isFavourite: Boolean,
+    @ColumnInfo(name = "is_read") val isRead: Boolean
 )
