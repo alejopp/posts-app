@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.posts_app.R
-import com.example.posts_app.data.api.responses.ApiResponseStatus
+import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.data.models.Post
 import com.example.posts_app.databinding.FragmentPostDetailBinding
 
@@ -31,13 +31,13 @@ class PostDetailFragment : Fragment() {
     private fun observeViewModel() {
         homeViewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
-                is ApiResponseStatus.Error -> {
+                is ResponseStatus.Error -> {
                     binding.pbPostDetailLoading.visibility = View.GONE
                     showErrorDialog(status.messageId)
                 }
-                is ApiResponseStatus.Loading -> binding.pbPostDetailLoading.visibility =
+                is ResponseStatus.Loading -> binding.pbPostDetailLoading.visibility =
                     View.VISIBLE
-                is ApiResponseStatus.Success -> binding.pbPostDetailLoading.visibility = View.GONE
+                is ResponseStatus.Success -> binding.pbPostDetailLoading.visibility = View.GONE
                 else -> TODO()
             }
         }

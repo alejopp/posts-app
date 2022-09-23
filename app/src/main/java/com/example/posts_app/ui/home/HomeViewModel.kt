@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.posts_app.data.api.responses.ApiResponseStatus
+import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.data.models.Post
 import com.example.posts_app.data.models.User
 import com.example.posts_app.data.models.dto.user.UserDto
@@ -25,22 +25,42 @@ class HomeViewModel : ViewModel() {
     private val _user = MutableLiveData<UserDto?>()
     val user: LiveData<UserDto?> get() = _user
 
-    private val _status = MutableLiveData<ApiResponseStatus<Any>?>()
-    val status: LiveData<ApiResponseStatus<Any>?> get() = _status
+    private val _status = MutableLiveData<ResponseStatus<Any>?>()
+    val status: LiveData<ResponseStatus<Any>?> get() = _status
 
-    private lateinit var plDb: List<Post>
-
-    fun getPostListFromApi(){
+    //TODO("Erase all prints)
+    fun getPosts(){
         viewModelScope.launch {
-            _status.value = ApiResponseStatus.Loading()
-            val response = postRepository.getPostListFromApi()
-            if (response is ApiResponseStatus.Success){
-                _postList.value = response.data
-                _status.value = ApiResponseStatus.Success(response)
-                insertPostsIntoDatabase(response.data)
+            _status.value = ResponseStatus.Loading()
+            val response = postRepository.getPostListFromDatabase()
+            if (response is ResponseStatus.Success){
+                if (response.data.isEmpty()){ // If db is empty we fetch data from the api
+                    getPostListFromApi()
+                }
+                else{
+                    _postList.value = response.data
+                    _status.value = ResponseStatus.Success(response)
+                    println("Data retrieved from database")
+                }
             }
-            if (response is ApiResponseStatus.Error){
-                _status.value = ApiResponseStatus.Error(response.messageId)
+            if (response is ResponseStatus.Error){
+                _status.value = ResponseStatus.Success(response.messageId)
+            }
+        }
+    }
+
+    private fun getPostListFromApi(){
+        viewModelScope.launch {
+            val response = postRepository.getPostListFromApi()
+            if (response is ResponseStatus.Success){
+                _postList.value = response.data
+                _status.value = ResponseStatus.Success(response)
+                println("Data retrieved from api")
+                insertPostsIntoDatabase(response.data)
+                println("Data stored in database")
+            }
+            if (response is ResponseStatus.Error){
+                _status.value = ResponseStatus.Error(response.messageId)
             }
         }
     }
@@ -48,7 +68,7 @@ class HomeViewModel : ViewModel() {
     fun getUserListFromApi(){
         viewModelScope.launch {
             val response = postRepository.getUsersListFromApi()
-            if (response is ApiResponseStatus.Success){
+            if (response is ResponseStatus.Success){
                 _userList.value = response.data
             }
         }
@@ -56,36 +76,25 @@ class HomeViewModel : ViewModel() {
 
     fun getUser(post: Post){
         viewModelScope.launch {
-            _status.value = ApiResponseStatus.Loading()
+            _status.value = ResponseStatus.Loading()
             val response = postRepository.getUserFromApi(post.userId)
-            if (response is ApiResponseStatus.Success){
+            if (response is ResponseStatus.Success){
                 _user.value = response.data
-                _status.value = ApiResponseStatus.Success(response)
+                _status.value = ResponseStatus.Success(response)
             }
-            if (response is ApiResponseStatus.Error){
-                _status.value = ApiResponseStatus.Error(response.messageId)
+            if (response is ResponseStatus.Error){
+                _status.value = ResponseStatus.Error(response.messageId)
             }
         }
     }
 
     private fun insertPostsIntoDatabase(postList: List<Post>){
         viewModelScope.launch {
-            try {
-                postRepository.insertPostsIntoDatabase(postList)
-            }catch (e: Exception){
-                Log.i("Database error", "${e.message}")
+            val response = postRepository.insertPostsIntoDatabase(postList)
+            if (response is ResponseStatus.Error){
+                _status.value = ResponseStatus.Error(response.messageId)
             }
         }
     }
 
-    fun getPostListFromDatabase(){
-        viewModelScope.launch {
-            try {
-                plDb = postRepository.getPostListFromDatabase()
-                println(plDb)
-            }catch (e: Exception){
-                Log.i("Database error", "${e.message}")
-            }
-        }
-    }
 }
