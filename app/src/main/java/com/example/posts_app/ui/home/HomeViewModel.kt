@@ -22,13 +22,12 @@ class HomeViewModel : ViewModel() {
     private val _userList = MutableLiveData<List<User>?>()
     val userList: LiveData<List<User>?> get() = _userList
 
-    private val _user = MutableLiveData<UserDto?>()
-    val user: LiveData<UserDto?> get() = _user
+    private val _user = MutableLiveData<User?>()
+    val user: LiveData<User?> get() = _user
 
     private val _status = MutableLiveData<ResponseStatus<Any>?>()
     val status: LiveData<ResponseStatus<Any>?> get() = _status
 
-    //TODO("Erase all prints)
     fun getPosts(){
         viewModelScope.launch {
             _status.value = ResponseStatus.Loading()
@@ -40,7 +39,6 @@ class HomeViewModel : ViewModel() {
                 else{
                     _postList.value = response.data
                     _status.value = ResponseStatus.Success(response)
-                    println("Data retrieved from database")
                 }
             }
             if (response is ResponseStatus.Error){
@@ -55,9 +53,7 @@ class HomeViewModel : ViewModel() {
             if (response is ResponseStatus.Success){
                 _postList.value = response.data
                 _status.value = ResponseStatus.Success(response)
-                println("Data retrieved from api")
                 insertPostsIntoDatabase(response.data)
-                println("Data stored in database")
             }
             if (response is ResponseStatus.Error){
                 _status.value = ResponseStatus.Error(response.messageId)
@@ -67,20 +63,11 @@ class HomeViewModel : ViewModel() {
 
     fun getUserListFromApi(){
         viewModelScope.launch {
+            _status.value = ResponseStatus.Loading()
             val response = postRepository.getUsersListFromApi()
             if (response is ResponseStatus.Success){
-                _userList.value = response.data
-            }
-        }
-    }
-
-    fun getUser(post: Post){
-        viewModelScope.launch {
-            _status.value = ResponseStatus.Loading()
-            val response = postRepository.getUserFromApi(post.userId)
-            if (response is ResponseStatus.Success){
-                _user.value = response.data
-                _status.value = ResponseStatus.Success(response)
+                insertUsersIntoDatabase(response.data)
+                _status.value = ResponseStatus.Success(response.data)
             }
             if (response is ResponseStatus.Error){
                 _status.value = ResponseStatus.Error(response.messageId)
@@ -88,9 +75,39 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun getUser(post: Post){
+        viewModelScope.launch {
+            _status.value = ResponseStatus.Loading()
+            var response = postRepository.getUserFromDatabase(post.userId)
+            if (response is ResponseStatus.Success){
+                _user.value = response.data
+                _status.value = ResponseStatus.Success(response)
+            }
+            if (response is ResponseStatus.Error){
+                response = postRepository.getUserFromApi(post.userId)
+                if (response is ResponseStatus.Success){
+                    _user.value = response.data
+                    _status.value = ResponseStatus.Success(response.data)
+                }
+                if (response is ResponseStatus.Error){
+                    _status.value = ResponseStatus.Error(response.messageId)
+                }
+            }
+        }
+    }
+
     private fun insertPostsIntoDatabase(postList: List<Post>){
         viewModelScope.launch {
             val response = postRepository.insertPostsIntoDatabase(postList)
+            if (response is ResponseStatus.Error){
+                _status.value = ResponseStatus.Error(response.messageId)
+            }
+        }
+    }
+
+    private fun insertUsersIntoDatabase(userList: List<User>){
+        viewModelScope.launch {
+            val response =  postRepository.insertUsersIntoDataBase(userList)
             if (response is ResponseStatus.Error){
                 _status.value = ResponseStatus.Error(response.messageId)
             }

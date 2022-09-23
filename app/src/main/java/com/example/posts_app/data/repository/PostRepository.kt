@@ -17,6 +17,7 @@ class PostRepository {
     val api = RetrofitProvider.provideRetrofitService()
     val dao = PostsApp.database.getPostDao()
 
+    //------Api data
     suspend fun getPostListFromApi(): ResponseStatus<List<Post>> = makeNetworkCall {
         val response = api.getPosts().toList()
         response.map { postDto -> postDto.toModel() }
@@ -29,11 +30,12 @@ class PostRepository {
         }
     }
 
-    suspend fun getUserFromApi(id: Int): ResponseStatus<UserDto> = makeNetworkCall {
-        val response = api.getUser(id)
+    suspend fun getUserFromApi(id: Int): ResponseStatus<User> = makeNetworkCall {
+        val response = api.getUser(id).toModel()
         response
     }
 
+    //------- Database data
     suspend fun getPostListFromDatabase(): ResponseStatus<List<Post>> = makeDatabaseCall {
         val response = dao.getPosts()
         response.map { postEntity -> postEntity.toModel() }
@@ -43,5 +45,17 @@ class PostRepository {
         dao.insertPosts(postList.map { post ->
             post.toEntity()
         })
+    }
+
+    suspend fun getUsersFromDatabase(): ResponseStatus<List<User>> = makeDatabaseCall {
+        dao.getUsers().map { userEntity -> userEntity.toModel() }
+    }
+
+    suspend fun insertUsersIntoDataBase(userList: List<User>) = makeDatabaseCall {
+        dao.insertUsers(userList.map { user -> user.toEntity() })
+    }
+
+    suspend fun getUserFromDatabase(id: Int): ResponseStatus<User> = makeDatabaseCall {
+        dao.getUser(id).toModel()
     }
 }

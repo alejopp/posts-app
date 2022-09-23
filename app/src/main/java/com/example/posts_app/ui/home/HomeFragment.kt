@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.posts_app.R
+import com.example.posts_app.data.models.Post
 import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.databinding.FragmentHomeBinding
 
@@ -57,8 +58,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setComponents() {
-        //Fetch posts data from internet
+        //Fetch posts data from api
         homeViewModel.getPosts()
+        //Fetch users from api
+        homeViewModel.getUserListFromApi()
+        //homeViewModel.getUser(Post(1,1,"","",false))
         //Set Post RecyclerView
         binding.rvPost.layoutManager = LinearLayoutManager(context)
     }
