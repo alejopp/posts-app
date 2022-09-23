@@ -5,7 +5,11 @@ import com.example.posts_app.data.models.Post
 import com.example.posts_app.data.models.dto.post.PostDto
 
 fun PostDto.toModel() =  Post(
-    userId, id, title, body, isFavourite = true
+    id = id,
+    userId = userId,
+    title = title,
+    body = body,
+    isFavourite = false
 )
 
 fun PostEntity.toModel() =  Post(

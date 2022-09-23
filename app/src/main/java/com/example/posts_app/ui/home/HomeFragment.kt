@@ -60,9 +60,6 @@ class HomeFragment : Fragment() {
     private fun setComponents() {
         //Fetch posts data from api
         homeViewModel.getPosts()
-        //Fetch users from api
-        homeViewModel.getUserListFromApi()
-        //homeViewModel.getUser(Post(1,1,"","",false))
         //Set Post RecyclerView
         binding.rvPost.layoutManager = LinearLayoutManager(context)
     }

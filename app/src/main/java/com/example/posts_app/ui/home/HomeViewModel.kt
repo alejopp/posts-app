@@ -54,6 +54,7 @@ class HomeViewModel : ViewModel() {
                 _postList.value = response.data
                 _status.value = ResponseStatus.Success(response)
                 insertPostsIntoDatabase(response.data)
+                getUserListFromApi()
             }
             if (response is ResponseStatus.Error){
                 _status.value = ResponseStatus.Error(response.messageId)
@@ -79,15 +80,18 @@ class HomeViewModel : ViewModel() {
         viewModelScope.launch {
             _status.value = ResponseStatus.Loading()
             var response = postRepository.getUserFromDatabase(post.userId)
+            println("Userid  ${post.userId}")
             if (response is ResponseStatus.Success){
                 _user.value = response.data
                 _status.value = ResponseStatus.Success(response)
+                println("User retrieved from database")
             }
             if (response is ResponseStatus.Error){
                 response = postRepository.getUserFromApi(post.userId)
                 if (response is ResponseStatus.Success){
                     _user.value = response.data
                     _status.value = ResponseStatus.Success(response.data)
+                    println("User retrieved from api")
                 }
                 if (response is ResponseStatus.Error){
                     _status.value = ResponseStatus.Error(response.messageId)
