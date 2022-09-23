@@ -16,6 +16,9 @@ interface PostDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPosts(post: List<PostEntity>)
 
+    @Query("UPDATE post_table SET is_favourite = :isFavourite WHERE id = :id")
+    suspend fun updateFavouriteField(id: Int, isFavourite: Boolean)
+
     //-------User queries
     @Query("SELECT * FROM user_table WHERE id == :id")
     suspend fun getUser(id: Int): UserEntity

@@ -21,4 +21,6 @@
     <string name="company_name">Company name: %s</string>
     <string name="database_error">Cannot access to database</string>
     <string name="unknown_sql_exception">A query error has occurred</string>
+    <string name="added_to_favourite">Added to favourites</string>
+    <string name="remove_from_favourite">Removed from favourites</string>
 </resources>

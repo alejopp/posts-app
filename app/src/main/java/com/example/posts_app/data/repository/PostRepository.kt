@@ -58,4 +58,8 @@ class PostRepository {
     suspend fun getUserFromDatabase(id: Int): ResponseStatus<User> = makeDatabaseCall {
         dao.getUser(id).toModel()
     }
+
+    suspend fun updateFavouriteField(id: Int, isFavourite: Boolean) = makeDatabaseCall {
+        dao.updateFavouriteField(id,isFavourite)
+    }
 }

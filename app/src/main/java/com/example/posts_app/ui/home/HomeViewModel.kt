@@ -28,6 +28,9 @@ class HomeViewModel : ViewModel() {
     private val _status = MutableLiveData<ResponseStatus<Any>?>()
     val status: LiveData<ResponseStatus<Any>?> get() = _status
 
+    private val _isFavourite = MutableLiveData<Boolean>()
+    val isFavourite: LiveData<Boolean> get() = _isFavourite
+
     fun getPosts(){
         viewModelScope.launch {
             _status.value = ResponseStatus.Loading()
@@ -115,6 +118,13 @@ class HomeViewModel : ViewModel() {
             if (response is ResponseStatus.Error){
                 _status.value = ResponseStatus.Error(response.messageId)
             }
+        }
+    }
+
+    fun updateFavouriteField(post: Post){
+        viewModelScope.launch {
+            postRepository.updateFavouriteField(post.id, !post.isFavourite)
+            _isFavourite.value = !post.isFavourite
         }
     }
 

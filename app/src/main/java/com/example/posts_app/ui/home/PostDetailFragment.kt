@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.posts_app.R
@@ -17,6 +18,7 @@ class PostDetailFragment : Fragment() {
     private var _binding: FragmentPostDetailBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModels()
+    private var post: Post? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +26,7 @@ class PostDetailFragment : Fragment() {
     ): View? {
         _binding = FragmentPostDetailBinding.inflate(inflater, container, false)
         loadDataIntoScreen()
+        listenViewEvents()
         observeViewModel()
         return binding.root
     }
@@ -60,6 +63,14 @@ class PostDetailFragment : Fragment() {
                 )
             }
         }
+        homeViewModel.isFavourite.observe(viewLifecycleOwner){ isFavourite ->
+            if (isFavourite){
+                Toast.makeText(context, R.string.added_to_favourite, Toast.LENGTH_LONG).show()
+            }
+            else{
+                Toast.makeText(context, R.string.remove_from_favourite, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun showErrorDialog(messageId: Int) {
@@ -72,11 +83,16 @@ class PostDetailFragment : Fragment() {
     }
 
     private fun loadDataIntoScreen() {
-        val post = arguments?.getParcelable<Post>("post")
+        post = arguments?.getParcelable<Post>("post")
         homeViewModel.getUser(post!!)
-        binding.tvPostTitlePostDetail.text = post.title
-        binding.tvPostBody.text = post.body
+        binding.tvPostTitlePostDetail.text = post?.title
+        binding.tvPostBody.text = post?.body
     }
 
+    private fun listenViewEvents() {
+        binding.fabPostDetailAddToFavourites.setOnClickListener {
+            homeViewModel.updateFavouriteField(post!!)
+        }
+    }
 
 }
