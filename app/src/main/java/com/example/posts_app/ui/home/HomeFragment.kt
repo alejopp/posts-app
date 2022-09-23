@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
 
     private fun setComponents() {
         //Fetch posts data from internet
-        homeViewModel.getPostList()
+        homeViewModel.getPostListFromApi()
         //Set Post RecyclerView
         binding.rvPost.layoutManager = LinearLayoutManager(context)
     }

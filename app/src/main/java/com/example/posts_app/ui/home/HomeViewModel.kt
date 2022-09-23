@@ -28,7 +28,9 @@ class HomeViewModel : ViewModel() {
     private val _status = MutableLiveData<ApiResponseStatus<Any>?>()
     val status: LiveData<ApiResponseStatus<Any>?> get() = _status
 
-    fun getPostList(){
+    private lateinit var plDb: List<Post>
+
+    fun getPostListFromApi(){
         viewModelScope.launch {
             _status.value = ApiResponseStatus.Loading()
             val response = postRepository.getPostListFromApi()
@@ -43,7 +45,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getUserList(){
+    fun getUserListFromApi(){
         viewModelScope.launch {
             val response = postRepository.getUsersListFromApi()
             if (response is ApiResponseStatus.Success){
@@ -67,11 +69,20 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun insertPostsIntoDatabase(postList: List<Post>){
-        val a = postList
         viewModelScope.launch {
             try {
-
                 postRepository.insertPostsIntoDatabase(postList)
+            }catch (e: Exception){
+                Log.i("Database error", "${e.message}")
+            }
+        }
+    }
+
+    fun getPostListFromDatabase(){
+        viewModelScope.launch {
+            try {
+                plDb = postRepository.getPostListFromDatabase()
+                println(plDb)
             }catch (e: Exception){
                 Log.i("Database error", "${e.message}")
             }

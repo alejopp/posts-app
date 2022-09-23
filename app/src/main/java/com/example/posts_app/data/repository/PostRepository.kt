@@ -34,9 +34,11 @@ class PostRepository {
         response
     }
 
-    suspend fun getPostListFromDatabase(): ApiResponseStatus<List<Post>> = makeNetworkCall {
-        val response = dao.getPosts()
-        response.map { postEntity -> postEntity.toModel() }
+    suspend fun getPostListFromDatabase(): List<Post> =
+        withContext(Dispatchers.IO){
+            val response = dao.getPosts()
+            response.map { postEntity -> postEntity.toModel()
+        }
     }
 
     suspend fun insertPostsIntoDatabase(postList: List<Post>) =
