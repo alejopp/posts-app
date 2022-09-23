@@ -18,9 +18,9 @@ class PostRepository {
     val dao = PostsApp.database.getPostDao()
 
     //------Api data
-    suspend fun getPostListFromApi(): ResponseStatus<List<Post>> = makeNetworkCall {
-        val response = api.getPosts().toList()
-        response.map { postDto -> postDto.toModel() }
+    suspend fun getPostListFromApi(): ResponseStatus<MutableList<Post>> = makeNetworkCall {
+        val response = api.getPosts()
+        response.map { it.toModel() }.toMutableList()
     }
 
     suspend fun getUsersListFromApi(): ResponseStatus<List<User>> = makeNetworkCall {
@@ -36,9 +36,9 @@ class PostRepository {
     }
 
     //------- Database data
-    suspend fun getPostListFromDatabase(): ResponseStatus<List<Post>> = makeDatabaseCall {
+    suspend fun getPostListFromDatabase(): ResponseStatus<MutableList<Post>> = makeDatabaseCall {
         val response = dao.getPosts()
-        response.map { postEntity -> postEntity.toModel() }
+        response.map { postEntity -> postEntity.toModel() }.toMutableList()
     }
 
     suspend fun insertPostsIntoDatabase(postList: List<Post>) = makeDatabaseCall {
@@ -61,5 +61,9 @@ class PostRepository {
 
     suspend fun updateFavouriteField(id: Int, isFavourite: Boolean) = makeDatabaseCall {
         dao.updateFavouriteField(id,isFavourite)
+    }
+
+    suspend fun deletePost(id:Int) = makeDatabaseCall {
+        dao.detetePost(id)
     }
 }

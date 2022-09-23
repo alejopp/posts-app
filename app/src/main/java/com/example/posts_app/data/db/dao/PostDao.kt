@@ -19,6 +19,9 @@ interface PostDao {
     @Query("UPDATE post_table SET is_favourite = :isFavourite WHERE id = :id")
     suspend fun updateFavouriteField(id: Int, isFavourite: Boolean)
 
+    @Query("DELETE FROM post_table WHERE id = :id")
+    suspend fun detetePost(id: Int)
+
     //-------User queries
     @Query("SELECT * FROM user_table WHERE id == :id")
     suspend fun getUser(id: Int): UserEntity

@@ -3,15 +3,23 @@ package com.example.posts_app.ui.home
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.collection.arrayMapOf
+import androidx.core.view.get
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.posts_app.MainActivity
 import com.example.posts_app.R
-import com.example.posts_app.data.models.Post
-import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.databinding.FragmentHomeBinding
+import com.example.posts_app.utils.ResponseStatus
+import com.example.posts_app.utils.SwipeToDeleteCallback
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
 
@@ -45,6 +53,15 @@ class HomeFragment : Fragment() {
         }
         homeViewModel.postList.observe(viewLifecycleOwner){ postList ->
             binding.rvPost.adapter = PostAdapter(postList)
+            val swipeToDeleteCallback = object: SwipeToDeleteCallback(){
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+                    postList?.get(position)?.let { homeViewModel.deletePost(it.id) }
+                    binding.rvPost.adapter?.notifyItemRemoved(position)
+                }
+            }
+            val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+            itemTouchHelper.attachToRecyclerView(binding.rvPost)
         }
     }
 
@@ -68,4 +85,5 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

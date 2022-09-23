@@ -16,8 +16,8 @@ import java.lang.Exception
 class HomeViewModel : ViewModel() {
     private val postRepository = PostRepository()
 
-    private val _postList = MutableLiveData<List<Post>?>()
-    val postList: LiveData<List<Post>?> get() = _postList
+    private val _postList = MutableLiveData<MutableList<Post>?>()
+    val postList: LiveData<MutableList<Post>?> get() = _postList
 
     private val _userList = MutableLiveData<List<User>?>()
     val userList: LiveData<List<User>?> get() = _userList
@@ -128,4 +128,10 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    fun deletePost(id: Int){
+        viewModelScope.launch {
+            postRepository.deletePost(id)
+            println("Post deleted")
+        }
+    }
 }
