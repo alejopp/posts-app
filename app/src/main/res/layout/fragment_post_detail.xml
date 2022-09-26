@@ -1,141 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.PostDetailFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_post_title_post_detail"
-        style="@style/text_title"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@tools:sample/lorem" />
-
-    <TextView
-        android:id="@+id/tv_post_body"
-        style="@style/text_description"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_title_post_detail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_title_post_detail"
-        tools:text="@tools:sample/full_names" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_author"
-        style="@style/text_title"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
-        android:text="@string/about_author"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_body" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_author_name"
-        style="@style/text_description"
-        android:layout_marginTop="16dp"
-        android:text="@string/name"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_author"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_author" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_username"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/username"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_author_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_author_name" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_email"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/email"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_username"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_username" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_street"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/street"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_email"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_email" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_suite"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/suite"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_street"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_street" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_city"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/city"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_suite"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_suite" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_phone"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/phone"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_city"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_city" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_website"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/website"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_phone"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_phone" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_company"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/company_name"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_website"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_website" />
-
-    <TextView
-        android:id="@+id/tv_post_detail_company_catch_phrase"
-        style="@style/text_description"
-        android:layout_marginTop="8dp"
-        android:text="@string/catch_phrase"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_post_detail_company"
-        app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_company"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ProgressBar
-        android:id="@+id/pb_post_detail_loading"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".ui.home.PostDetailFragment">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_post_detail_add_to_favourites"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_star_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tv_post_title_post_detail"
+            style="@style/text_title"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem" />
 
+        <TextView
+            android:id="@+id/tv_post_body"
+            style="@style/text_description"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_title_post_detail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_title_post_detail"
+            tools:text="@tools:sample/full_names" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_post_detail_author"
+            style="@style/text_title"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/about_author"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_body" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_author_name"
+            style="@style/text_description"
+            android:layout_marginTop="16dp"
+            android:text="@string/name"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_author"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_author" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_username"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/username"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_author_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_author_name" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_email"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/email"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_username"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_username" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_street"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/street"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_email"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_email" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_suite"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/suite"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_street"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_street" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_city"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/city"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_suite"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_suite" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_phone"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/phone"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_city"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_city" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_website"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/website"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_phone"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_phone" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_company"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/company_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_website"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_website" />
+
+        <TextView
+            android:id="@+id/tv_post_detail_company_catch_phrase"
+            style="@style/text_description"
+            android:layout_marginTop="8dp"
+            android:text="@string/catch_phrase"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_post_detail_company"
+            app:layout_constraintTop_toBottomOf="@+id/tv_post_detail_company"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ProgressBar
+            android:id="@+id/pb_post_detail_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_post_detail_add_to_favourites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:clickable="true"
+            android:src="@drawable/ic_baseline_star_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            android:focusable="true"
+            android:contentDescription="" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

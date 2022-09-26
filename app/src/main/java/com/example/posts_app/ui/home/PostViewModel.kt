@@ -19,6 +19,9 @@ class PostViewModel : ViewModel() {
     private val _postList = MutableLiveData<MutableList<Post>?>()
     val postList: LiveData<MutableList<Post>?> get() = _postList
 
+    private val _favouritePostList = MutableLiveData<MutableList<Post>?>()
+    val favouritePostList: LiveData<MutableList<Post>?> get() = _favouritePostList
+
     private val _userList = MutableLiveData<List<User>?>()
     val userList: LiveData<List<User>?> get() = _userList
 
@@ -142,6 +145,22 @@ class PostViewModel : ViewModel() {
         viewModelScope.launch {
             postRepository.deletePost(id)
             println("Post deleted")
+        }
+    }
+
+    fun getFavouritePosts() {
+        viewModelScope.launch {
+            _status.value = ResponseStatus.Loading()
+            val favouritePostListTemp = postRepository.getPostListFromDatabase()
+            if (favouritePostListTemp is ResponseStatus.Success){
+                _favouritePostList.value = favouritePostListTemp.data.filter { post ->
+                    post.isFavourite
+                }.toMutableList()
+                _status.value = ResponseStatus.Success(favouritePostListTemp)
+            }
+            if(favouritePostListTemp is ResponseStatus.Error){
+                _status.value = ResponseStatus.Error(favouritePostListTemp.messageId)
+            }
         }
     }
 }
