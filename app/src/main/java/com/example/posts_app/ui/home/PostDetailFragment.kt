@@ -17,7 +17,7 @@ class PostDetailFragment : Fragment() {
 
     private var _binding: FragmentPostDetailBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val postViewModel: PostViewModel by viewModels()
     private var post: Post? = null
 
     override fun onCreateView(
@@ -32,7 +32,7 @@ class PostDetailFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        homeViewModel.status.observe(viewLifecycleOwner) { status ->
+        postViewModel.status.observe(viewLifecycleOwner) { status ->
             when (status) {
                 is ResponseStatus.Error -> {
                     binding.pbPostDetailLoading.visibility = View.GONE
@@ -44,7 +44,7 @@ class PostDetailFragment : Fragment() {
                 else -> TODO()
             }
         }
-        homeViewModel.user.observe(viewLifecycleOwner) { user ->
+        postViewModel.user.observe(viewLifecycleOwner) { user ->
             with(binding) {
                 tvPostDetailAuthorName.text = context?.getString(R.string.name, user?.name)
                 tvPostDetailUsername.text = context?.getString(R.string.username, user?.username)
@@ -63,7 +63,7 @@ class PostDetailFragment : Fragment() {
                 )
             }
         }
-        homeViewModel.isFavourite.observe(viewLifecycleOwner){ isFavourite ->
+        postViewModel.isFavourite.observe(viewLifecycleOwner){ isFavourite ->
             if (isFavourite){
                 Toast.makeText(context, R.string.added_to_favourite, Toast.LENGTH_LONG).show()
             }
@@ -84,15 +84,15 @@ class PostDetailFragment : Fragment() {
 
     private fun loadDataIntoScreen() {
         post = arguments?.getParcelable<Post>("post")
-        homeViewModel.getUser(post!!)
+        postViewModel.getUser(post!!)
         binding.tvPostTitlePostDetail.text = post?.title
         binding.tvPostBody.text = post?.body
-        if (post?.isRead == false) homeViewModel.updateIsReadField(post!!)
+        if (post?.isRead == false) postViewModel.updateIsReadField(post!!)
     }
 
     private fun listenViewEvents() {
         binding.fabPostDetailAddToFavourites.setOnClickListener {
-            homeViewModel.updateFavouriteField(post!!)
+            postViewModel.updateFavouriteField(post!!)
         }
     }
 

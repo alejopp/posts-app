@@ -29,19 +29,26 @@ class PostAdapter(private val postList: List<Post>?) :
 
     override fun getItemCount() = postList?.size ?: 0
 
-    inner class PostViewHolder(private val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root){
+        init {
+            println("Viewholder created")
+        }
         fun render(post: Post, position: Int){
-            binding.tvPostPosition.text = (position + 1).toString()
-            binding.tvTilteText.text = postList?.get(position)?.title
-            binding.tvPostDescriptionText.text = postList?.get(position)?.body
-            if (postList?.get(position)?.isFavourite == true) binding.ivFavourite.visibility =
-                View.VISIBLE
+            println("Position $position, index ${post.id}")
+            binding.tvPostPosition.text = post.id.toString()
+            binding.tvTilteText.text = post.title
+            binding.tvPostDescriptionText.text = post.body
+            if (post.isFavourite ){
+                binding.ivFavourite.visibility = View.VISIBLE
+            }
+            else{
+                binding.ivFavourite.visibility = View.GONE
+            }
             itemView.setOnClickListener {
                 val bundle =  bundleOf("post" to post)
                 it.findNavController().navigate(R.id.postDetailFragmentDestination, bundle)
             }
-            binding.tvUserId.text = postList?.get(position)?.userId.toString()
-            if (post?.isRead == false) {
+            if (!post.isRead) {
                 binding.tvPostPosition.setBackgroundResource(R.drawable.circle_background_blue)
                 binding.tvPostPosition.setTextColor(Color.WHITE)
             }

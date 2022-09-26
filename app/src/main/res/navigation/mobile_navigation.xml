@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.posts_app.ui.home.HomeFragment"
+        android:id="@+id/navigation_favourite_posts"
+        android:name="com.example.posts_app.ui.favourites.FavouritesFragment"
         android:label="@string/title_favourites"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_favourites" />
 
     <fragment
         android:id="@+id/postDetailFragmentDestination"
