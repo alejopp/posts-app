@@ -66,4 +66,8 @@ class PostRepository {
     suspend fun updateIsReadField(id: Int, isRead: Boolean) = makeDatabaseCall {
         dao.updateIsReadField(id, isRead)
     }
+
+    suspend fun deleteAllPosts() = makeDatabaseCall {
+        dao.deleteAllPosts()
+    }
 }
