@@ -32,4 +32,7 @@ interface PostDao {
     @Query("UPDATE post_table SET is_read = :isRead WHERE id = :id")
     suspend fun updateIsReadField(id: Int, isRead: Boolean)
 
+    @Query("DELETE FROM post_table")
+    suspend fun deleteAllPosts()
+
 }

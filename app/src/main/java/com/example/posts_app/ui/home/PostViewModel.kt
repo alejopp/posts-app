@@ -163,4 +163,18 @@ class PostViewModel : ViewModel() {
             }
         }
     }
+
+    fun deleteAllPosts() {
+        viewModelScope.launch {
+            _status.value = ResponseStatus.Loading()
+            val response = postRepository.deleteAllPosts()
+            if (response is ResponseStatus.Success){
+                _postList.value = mutableListOf()
+                _status.value = ResponseStatus.Success(response.data)
+            }
+            if (response is ResponseStatus.Error){
+                _status.value = ResponseStatus.Error(response.messageId)
+            }
+        }
+    }
 }

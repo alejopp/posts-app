@@ -23,4 +23,10 @@
     <string name="unknown_sql_exception">A query error has occurred</string>
     <string name="added_to_favourite">Added to favourites</string>
     <string name="remove_from_favourite">Removed from favourites</string>
+    <string name="delete_all_posts">Delete all posts</string>
+    <string name="action_delete_posts">Delete all posts</string>
+    <string name="confirm_delete_message">Delete all posts?</string>
+    <string name="error_message">An error has ocurred!</string>
+    <string name="confirm_message">Confirm</string>
+    <string name="posts_deleted_correctly">Posts deleted correctly</string>
 </resources>
