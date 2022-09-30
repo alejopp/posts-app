@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.posts_app.databinding.FragmentFavouritesBinding
 import com.example.posts_app.ui.home.PostAdapter
 import com.example.posts_app.ui.home.PostViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavouritesFragment : Fragment() {
 
     private var _binding: FragmentFavouritesBinding? = null

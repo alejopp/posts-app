@@ -4,7 +4,9 @@ import android.app.Application
 import androidx.room.Room
 import com.example.posts_app.data.db.PostDatabase
 import com.example.posts_app.utils.DATABASE_NAME
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class PostsApp: Application() {
     companion object{
         lateinit var database: PostDatabase

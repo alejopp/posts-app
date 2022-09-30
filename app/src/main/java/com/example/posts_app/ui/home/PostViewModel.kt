@@ -1,6 +1,5 @@
 package com.example.posts_app.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.data.models.Post
 import com.example.posts_app.data.models.User
-import com.example.posts_app.data.models.dto.user.UserDto
-import com.example.posts_app.data.repository.PostRepository
+import com.example.posts_app.data.repository.PostRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import javax.inject.Inject
 
-class PostViewModel : ViewModel() {
-    private val postRepository = PostRepository()
+@HiltViewModel
+class PostViewModel @Inject constructor(private val postRepository: PostRepositoryImpl) : ViewModel() {
 
     private val _postList = MutableLiveData<MutableList<Post>?>()
     val postList: LiveData<MutableList<Post>?> get() = _postList
