@@ -12,7 +12,9 @@ import com.example.posts_app.R
 import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.data.models.Post
 import com.example.posts_app.databinding.FragmentPostDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PostDetailFragment : Fragment() {
 
     private var _binding: FragmentPostDetailBinding? = null

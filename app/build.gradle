@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 apply plugin: 'kotlin-android'
@@ -70,4 +71,12 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
+    //Dagger Hilt
+    implementation "com.google.dagger:hilt-android:$daggerHiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$daggerHiltVersion"
+
+}
+
+kapt {
+    correctErrorTypes true
 }

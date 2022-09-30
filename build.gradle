@@ -5,13 +5,13 @@ buildscript {
         // Check that you have the following line (if not, add it):
         google()  // Google's Maven repository
         mavenCentral()
-
     }
     dependencies {
         // Add this line
         classpath 'com.google.gms:google-services:4.3.13'
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.42"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.44"
     }
 }
 
@@ -32,6 +32,7 @@ ext {
     roomVersion = "2.4.3"
     navigationVersion = "2.5.2"
     lifecycleVersion = "2.5.1"
+    daggerHiltVersion = "2.44"
 }
 
 task clean(type: Delete) {

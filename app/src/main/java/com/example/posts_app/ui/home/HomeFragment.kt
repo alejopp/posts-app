@@ -17,7 +17,9 @@ import com.example.posts_app.R
 import com.example.posts_app.databinding.FragmentHomeBinding
 import com.example.posts_app.utils.ResponseStatus
 import com.example.posts_app.utils.SwipeToDeleteCallback
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentHomeBinding? = null
